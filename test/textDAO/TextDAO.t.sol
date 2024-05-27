@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import { UCSTestBase } from "bundle/_utils/UCSTestBase.sol";
+import {MCTest} from "@devkit/Flattened.sol";
+
 import { Propose } from "bundle/textdao/functions/Propose.sol";
 import { Fork } from "bundle/textdao/functions/Fork.sol";
 import { Vote } from "bundle/textdao/functions/Vote.sol";
@@ -12,9 +13,9 @@ import { Schema } from "bundle/textdao/storages/Schema.sol";
 import { SaveTextProtected } from "bundle/textdao/functions/protected/SaveTextProtected.sol";
 import { MemberJoinProtected } from "bundle/textdao/functions/protected/MemberJoinProtected.sol";
 
-contract Test2 is UCSTestBase {
+contract TextDAOTest is MCTest {
 
-    function setUp() public override {
+    function setUp() public {
         implementations[Propose.propose.selector] = address(new Propose());
         implementations[Fork.fork.selector] = address(new Fork());
         implementations[Execute.execute.selector] = address(new Execute());
@@ -29,7 +30,7 @@ contract Test2 is UCSTestBase {
         uint pid = 0;
         uint textId = 0;
 
-        // Note: Array variable is only available as function args. 
+        // Note: Array variable is only available as function args.
         bytes32[] memory metadataURIs = new bytes32[](2);
         metadataURIs[0] = bytes32(uint256(1));
         metadataURIs[1] = bytes32(uint256(2));
