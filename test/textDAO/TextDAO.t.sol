@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 import {MCTest} from "@devkit/Flattened.sol";
 
-import { Propose } from "bundle/textdao/functions/Propose.sol";
+import { Propose } from "bundle/textdao/functions/protected/Propose.sol";
 import { Fork } from "bundle/textdao/functions/Fork.sol";
 import { Vote } from "bundle/textdao/functions/Vote.sol";
 import { Execute } from "bundle/textdao/functions/Execute.sol";

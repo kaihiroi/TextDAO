@@ -8,7 +8,7 @@ import { MCScript } from "@devkit/MCScript.sol";
 
 import { Clone } from "@mc-std/functions/Clone.sol";
 import { Initialize } from "bundle/textdao/functions/onlyonce/Initialize.sol";
-import { Propose } from "bundle/textdao/functions/Propose.sol";
+import { Propose } from "bundle/textdao/functions/protected/Propose.sol";
 import { Fork } from "bundle/textdao/functions/Fork.sol";
 import { Vote } from "bundle/textdao/functions/Vote.sol";
 import { Tally } from "bundle/textdao/functions/Tally.sol";

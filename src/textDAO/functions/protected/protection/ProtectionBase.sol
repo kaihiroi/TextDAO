@@ -14,6 +14,7 @@ contract ProtectionBase {
         _;
     }
 
+    error YouAreNotTheMember();
     modifier onlyMember() {
         Schema.MemberJoinProtectedStorage storage $member = Storage.$Members();
 
@@ -22,7 +23,7 @@ contract ProtectionBase {
         for (uint i; i < $member.nextMemberId; i++) {
             result = $member.members[i].addr == msg.sender || result;
         }
-        require(result, "You are not the member.");
+        if (!result) revert YouAreNotTheMember();
         _;
     }
 

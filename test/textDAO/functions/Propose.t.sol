@@ -3,12 +3,13 @@ pragma solidity ^0.8.24;
 
 import {MCTest} from "@devkit/Flattened.sol";
 
-import { SelectorLib } from "bundle/_utils/SelectorLib.sol";
-import { Propose } from "bundle/textdao/functions/Propose.sol";
+import { Propose } from "bundle/textdao/functions/protected/Propose.sol";
 import { Storage } from "bundle/textdao/storages/Storage.sol";
 import { Schema } from "bundle/textdao/storages/Schema.sol";
 import { Types } from "bundle/textdao/storages/Types.sol";
 import "@chainlink/vrf/interfaces/VRFCoordinatorV2Interface.sol";
+
+import {ProtectionBase} from "bundle/textDAO/functions/protected/protection/ProtectionBase.sol";
 
 contract ProposeTest is MCTest {
 
