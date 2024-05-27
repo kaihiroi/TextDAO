@@ -17,7 +17,7 @@ contract Propose {
         if ($.config.repsNum < $member.nextMemberId) {
             /*
                 VRF Request to choose reps
-            */            
+            */
 
             require($vrf.subscriptionId > 0, "No Chainlink VRF subscription. Try SetConfigsProtected::createAndFundSubscription first.");
             require($vrf.config.vrfCoordinator != address(0), "No Chainlink VRF vrfCoordinator. Try SetVRFProtected::setVRFConfig first.");
@@ -49,26 +49,9 @@ contract Propose {
             $p.cmds.push(_p.cmd);
         }
         // Note: Shadow(sender, timestamp)
-        
+
         proposalId = $.nextProposalId;
         $.nextProposalId++;
-    }
-
-    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWordsReturned) public returns (bool) {
-        Schema.VRFStorage storage $vrf = Storage.$VRF();
-        Schema.Request storage $r = $vrf.requests[requestId];
-        Schema.ProposeStorage storage $prop = Storage.$Proposals();
-        Schema.Proposal storage $p = $prop.proposals[$r.proposalId];
-        Schema.MemberJoinProtectedStorage storage $member = Storage.$Members();
-
-
-        uint256[] memory randomWords = randomWordsReturned;
-
-        for (uint i; i < randomWords.length; i++) {
-            uint pickedIndex = uint256(randomWords[i]) % $member.nextMemberId;
-            $p.proposalMeta.reps[$p.proposalMeta.nextRepId] = $member.members[pickedIndex].addr;
-            $p.proposalMeta.nextRepId++;
-        }
     }
 
     modifier onlyMember() {
