@@ -14,4 +14,16 @@ contract ProtectionBase {
         _;
     }
 
+    modifier onlyMember() {
+        Schema.MemberJoinProtectedStorage storage $member = Storage.$Members();
+
+        bool result;
+
+        for (uint i; i < $member.nextMemberId; i++) {
+            result = $member.members[i].addr == msg.sender || result;
+        }
+        require(result, "You are not the member.");
+        _;
+    }
+
 }

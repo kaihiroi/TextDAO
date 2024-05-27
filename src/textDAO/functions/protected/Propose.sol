@@ -7,7 +7,9 @@ import { Schema } from "bundle/textdao/storages/Schema.sol";
 import { Types } from "bundle/textdao/storages/Types.sol";
 import "@chainlink/vrf/interfaces/VRFCoordinatorV2Interface.sol";
 
-contract Propose {
+import {ProtectionBase} from "bundle/textDAO/functions/protected/protection/ProtectionBase.sol";
+
+contract Propose is ProtectionBase {
     function propose(Types.ProposalArg calldata _p) external onlyMember returns (uint proposalId) {
         Schema.ProposeStorage storage $ = Storage.$Proposals();
         Schema.Proposal storage $p = $.proposals[proposalId];
@@ -52,18 +54,6 @@ contract Propose {
 
         proposalId = $.nextProposalId;
         $.nextProposalId++;
-    }
-
-    modifier onlyMember() {
-        Schema.MemberJoinProtectedStorage storage $member = Storage.$Members();
-
-        bool result;
-
-        for (uint i; i < $member.nextMemberId; i++) {
-            result = $member.members[i].addr == msg.sender || result;
-        }
-        require(result, "You are not the member.");
-        _;
     }
 
 }
