@@ -21,11 +21,11 @@ contract ProposeTest is MCTest {
         Schema.MemberJoinProtectedStorage storage $m = Storage.$Members();
         Schema.VRFStorage storage $vrf = Storage.$VRF();
 
-        Types.ProposalArg memory p;
-        p.header.metadataURI = "Qc.....xh";
+        $m.nextMemberId = 1;
+        $m.members[0].addr = address(this);
 
-        $vrf.config.vrfCoordinator = address(1);
         $vrf.subscriptionId = uint64(1);
+        $vrf.config.vrfCoordinator = address(1);
         $vrf.config.keyHash = bytes32(uint256(1));
         $vrf.config.callbackGasLimit = uint32(1);
         $vrf.config.requestConfirmations = uint16(1);
@@ -33,11 +33,12 @@ contract ProposeTest is MCTest {
         $vrf.config.LINKTOKEN = address(1);
         vm.mockCall(
             $vrf.config.vrfCoordinator,
-            abi.encodeWithSelector(VRFCoordinatorV2Interface.requestRandomWords.selector), abi.encode(1)
+            abi.encodeWithSelector(VRFCoordinatorV2Interface.requestRandomWords.selector),
+            abi.encode(1)
         );
 
-        $m.nextMemberId = 1;
-        $m.members[0].addr = address(this);
+        Types.ProposalArg memory p;
+        p.header.metadataURI = "Qc.....xh";
 
         uint pid = Propose(address(this)).propose(p);
         Schema.Proposal storage $p = Storage.$Proposals().proposals[pid];
