@@ -49,4 +49,14 @@ contract ProposeTest is MCTest {
         assertEq($p.headers[0].metadataURI, p.header.metadataURI);
     }
 
+    function test_propose_RevertIf_NotMember() public {
+        // Schema.MemberJoinProtectedStorage storage $m = Storage.$Members();
+        // assertEq($m.members.length, 0);
+
+        Types.ProposalArg memory p;
+
+        vm.expectRevert(ProtectionBase.YouAreNotTheMember.selector);
+        Propose(address(this)).propose(p);
+    }
+
 }
