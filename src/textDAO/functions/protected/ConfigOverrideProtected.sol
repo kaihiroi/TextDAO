@@ -4,7 +4,7 @@ pragma solidity ^0.8.24;
 
 import { Storage } from "bundle/textdao/storages/Storage.sol";
 import { Schema } from "bundle/textdao/storages/Schema.sol";
-import { ProtectionBase } from "bundle/_utils/ProtectionBase.sol";
+import { ProtectionBase } from "bundle/textDAO/functions/protected/protection/ProtectionBase.sol";
 import { Tally } from "bundle/textdao/functions/Tally.sol";
 
 contract ConfigOverrideProtected is ProtectionBase {
